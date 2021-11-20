@@ -1,0 +1,49 @@
+﻿<Window x:Class="NotMVMMSuck.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotMVMMSuck.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ListView Margin="0,71,0,80" ItemsSource="{Binding FilterList}" SelectedItem="{Binding SelectProduct}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ListView_SelectionChanged">
+            <ListView.ItemTemplate>
+
+                <DataTemplate DataType="{x:Type ListViewItem}">
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid>
+                            <Image HorizontalAlignment="Left" Margin="0,0,0,0" Width="100" Height="80" Source="{Binding images,Converter={StaticResource Con}}"></Image>
+                            <StackPanel  Margin="100,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding name_product}"></TextBlock>
+                                    <TextBlock Text=" | "></TextBlock>
+                                    <TextBlock Text="{Binding tip_product}"></TextBlock>
+                                </StackPanel>
+                                <TextBlock Text="{Binding articul}"></TextBlock>
+                            </StackPanel>
+                            <TextBlock Margin="0,0,40,0" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Цена"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Text="{Binding min_cost}"></TextBlock>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"></EventSetter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <TextBox x:Name="Search" Text="{Binding SearchText,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="10,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="171" TextChanged="TextSearch_TextChanged"/>
+        <ComboBox ItemsSource="{Binding FilterType}" SelectedItem="{Binding SelectType}" HorizontalAlignment="Left" Margin="236,43,0,0" VerticalAlignment="Top" Width="144"/>
+        <ComboBox ItemsSource="{Binding SortParams}" SelectedItem="{Binding SelectSort}" DisplayMemberPath="Title" HorizontalAlignment="Left" Margin="416,44,0,0" VerticalAlignment="Top" Width="216"/>
+        <Button Content="Вперед" HorizontalAlignment="Left" Margin="662,374,0,0" VerticalAlignment="Top" Width="75" Click="ButtonClickNext"/>
+        <Button Content="Назад" HorizontalAlignment="Left" Margin="472,374,0,0" VerticalAlignment="Top" Width="75" Click="ButtonClickPrevious"/>
+        <TextBlock HorizontalAlignment="Left" Margin="588,374,0,0" TextWrapping="Wrap" Text="{Binding PageDisplay}" VerticalAlignment="Top"/>
+        <StackPanel HorizontalAlignment="Left" Height="44" Margin="652,21,0,0" VerticalAlignment="Top" Width="130" RenderTransformOrigin="0.747,0.594">
+            <RadioButton Content="По возрастанию" Checked="RadioButton_Checked_1"></RadioButton>
+            <RadioButton Content="По убыванию" Checked="RadioButton_Checked"></RadioButton>
+        </StackPanel>
+        <Button Content="Добавить" HorizontalAlignment="Left" Margin="32,374,0,0" VerticalAlignment="Top" Width="90" Click="ButtonAddClick"/>
+    </Grid>
+</Window>
